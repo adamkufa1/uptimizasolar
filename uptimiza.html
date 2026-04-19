@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPTIMIZA | Solar Energy Puerto Rico</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFDE59;
+    --surface: #ffffff;
+    --surface2: #fffbee;
+    --border: #d4b800;
+    --accent: #1a1a1a;
+    --accent-dim: rgba(0,0,0,0.07);
+    --text: #111111;
+    --muted: #333333;
+    --radius: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: #111111;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(255,222,89,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta { background: #111111 !important;
+    background: var(--accent);
+    color: #FFDE59 !important;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 500 !important;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 50% 30%, rgba(0,0,0,0.03) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--accent-dim);
+    border: 1px solid rgba(0,0,0,0.15);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 32px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 7vw, 72px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    max-width: 800px;
+  }
+
+  .hero h1 span { color: var(--accent); }
+
+  .hero p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto 48px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: #111111;
+    color: #FFDE59;
+    padding: 14px 32px;
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .btn-primary:hover { opacity: 0.9; }
+
+  .btn-secondary {
+    background: transparent;
+    color: #111111;
+    padding: 14px 32px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+
+  .btn-secondary:hover { border-color: var(--muted); }
+
+  /* STATS BAR */
+  .stats {
+    border-top: 1px solid #e8c800;
+    border-bottom: 1px solid var(--border);
+    padding: 40px 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+    gap: 1px;
+  }
+
+  .stat {
+    padding: 20px;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 96px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .section-sub {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 56px;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .about-content p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #111;
+    margin-bottom: 20px;
+  }
+
+  .about-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .highlight {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+  }
+
+  .highlight h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #111111;
+  }
+
+  .highlight p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .service-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    transition: border-color 0.2s;
+  }
+
+  .service-card:hover { border-color: rgba(0,0,0,0.3); }
+
+  .service-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--accent-dim);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+
+  .service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .service-card p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  /* HOW IT WORKS */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    position: relative;
+  }
+
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .step {
+    text-align: center;
+    position: relative;
+  }
+
+  .step-num {
+    width: 56px;
+    height: 56px;
+    background: #fff9e0;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+    position: relative;
+    z-index: 1;
+  }
+
+  .step h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .step p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* WHY SOLAR */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .why-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .why-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .why-card h4 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .why-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* CONTACT / OPT-IN */
+  .contact-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .contact-info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .contact-info p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  .contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #111;
+  }
+
+  .contact-detail span:first-child {
+    color: var(--accent);
+    font-size: 16px;
+  }
+
+  /* FORM */
+  .form-group { margin-bottom: 16px; }
+
+  .form-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .form-group input {
+    width: 100%;
+    background: #fff9e0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 13px 16px;
+    color: #111111;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus { border-color: var(--accent); }
+  .form-group input::placeholder { color: #111; }
+
+  .consent-box {
+    background: #fff9e0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin: 8px 0;
+  }
+
+  .consent-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+  }
+
+  .consent-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    margin-top: 2px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  .consent-text {
+    font-size: 11px;
+    line-height: 1.6;
+    color: #111;
+  }
+
+  .sms-disclosure {
+    font-size: 11px;
+    color: #111;
+    line-height: 1.5;
+    margin-top: 12px;
+  }
+
+  .sms-disclosure a { color: #111; text-decoration: none; }
+  .sms-disclosure a:hover { color: var(--accent); }
+
+  .btn-submit {
+    width: 100%;
+    background: var(--accent);
+    color: #0b0b0b;
+    border: none;
+    border-radius: var(--radius);
+    padding: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: opacity 0.2s;
+  }
+
+  .btn-submit:hover { opacity: 0.9; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid #e8c800;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .footer-info {
+    font-size: 12px;
+    color: #111;
+    line-height: 1.7;
+    text-align: center;
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    font-size: 12px;
+    color: #111;
+    text-decoration: none;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  /* DIVIDER */
+  .full-divider {
+    border: none;
+    border-top: 1px solid #e8c800;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    nav .nav-links { display: none; }
+    section { padding: 64px 20px; }
+    .about-grid, .services-grid, .steps, .why-grid, .contact-section { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr; }
+    .steps::before { display: none; }
+    .contact-section { padding: 32px; }
+    footer { flex-direction: column; text-align: center; }
+    .footer-info { order: 3; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">UPTIMIZA</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="#contact">Contact Us</a>
+    <a href="#contact" class="nav-cta">Request Solar Consultation</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="home" class="hero">
+  <div>
+    <div class="hero-badge">Puerto Rico Solar Dealer</div>
+    <h1>Power Your Home with <span>Clean Energy</span></h1>
+    <p>UPTIMIZA helps Puerto Rico homeowners go solar — generate clean energy at home and reduce dependence on the grid.</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn-primary">Request Solar Consultation</a>
+      <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+    </div>
+  </div>
+</div>
+
+<!-- STATS REMOVED -->
+
+<hr class="full-divider">
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-content">
+      <div class="section-label">About Us</div>
+      <h2 class="section-title">Puerto Rico-Based. Family-Focused. Solar-First.</h2>
+      <p>UPTIMIZA LLC is a solar company based in San Juan, Puerto Rico. We specialize in helping homeowners across Puerto Rico access the economic and environmental benefits of residential solar energy.</p>
+      <p>We work exclusively through digital channels — no door-to-door pressure, no high-pressure sales tactics. Our inquiries come directly from homeowners who want to learn more, and we connect them with trusted installation partners who deliver quality results.</p>
+      <p>Our mission is simple: make solar accessible, transparent, and worth it for every family we work with.</p>
+    </div>
+    <div class="about-highlights">
+      <div class="highlight">
+        <h4>No Door-to-Door Sales</h4>
+        <p>We generate all our inquiries through digital marketing. You come to us — not the other way around.</p>
+      </div>
+      <div class="highlight">
+        <h4>Trusted Installation Partners</h4>
+        <p>We work with vetted, licensed solar installers across Puerto Rico to ensure quality on every project.</p>
+      </div>
+      <div class="highlight">
+        <h4>Transparent Process</h4>
+        <p>No hidden fees, no confusing contracts. We walk you through every step from consultation to installation.</p>
+      </div>
+      <div class="highlight">
+        <h4>Puerto Rico Specialists</h4>
+        <p>We know Puerto Rico's utility landscape, incentive programs, and what it takes to maximize your solar ROI.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label">What We Offer</div>
+  <h2 class="section-title">Our Services</h2>
+  <p class="section-sub">We handle everything from your initial consultation through installation coordination, making the solar process simple and stress-free.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">☀️</div>
+      <h3>Free Solar Consultation</h3>
+      <p>Our specialists assess your home's solar potential, review your utility bills, and provide a custom savings estimate — at no cost to you.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📋</div>
+      <h3>System Design & Proposal</h3>
+      <p>We design a solar system sized for your home's energy needs and present a clear proposal showing projected results and timeline.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔧</div>
+      <h3>Installation Coordination</h3>
+      <p>We connect you with our network of licensed Puerto Rico solar installers who handle permits, installation, and utility interconnection.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💰</div>
+      <h3>Energy Plan Guidance</h3>
+      <p>We help you navigate solar plan options including plans with no upfront cost, leases, and power purchase agreements to find what fits your budget.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📊</div>
+      <h3>Benefits Optimization</h3>
+      <p>We ensure you capture every available benefit from Puerto Rico's solar programs, net metering, and utility incentives available to homeowners.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🤝</div>
+      <h3>Post-Install Support</h3>
+      <p>After your system is live, our team remains available to answer questions and help you track your energy production and results.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div style="text-align: center; margin-bottom: 64px;">
+    <div class="section-label">The Process</div>
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub" style="margin: 0 auto;">Residential solar is simpler than most people think. Here's how a home solar system actually works.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Sunlight Hits the Panels</h4>
+      <p>Photovoltaic (PV) solar panels on your roof absorb sunlight and convert it into direct current (DC) electricity throughout the day.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Inverter Converts the Power</h4>
+      <p>An inverter transforms the DC electricity into alternating current (AC) power — the same type of electricity your home already uses.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Your Home Uses Clean Energy</h4>
+      <p>The converted energy flows directly into your home's electrical panel, powering your appliances, lighting, and devices with clean solar energy.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Excess Goes Back to the Grid</h4>
+      <p>Any energy your panels produce beyond what your home needs is sent back to the utility grid through net metering, further reducing your monthly bill.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- WHY SOLAR -->
+<section>
+  <div class="section-label">Why Solar</div>
+  <h2 class="section-title">Why Puerto Rico Homeowners Choose Solar</h2>
+  <p class="section-sub">Puerto Rico's sunshine makes it one of the best regions for solar. Here's why now is the right time.</p>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">☀️</div>
+      <div>
+        <h4>Florida Gets More Sun</h4>
+        <p>Florida averages over 230 sunny days per year — one of the highest in the country. More sun means more clean energy produced for your home every single day.</p>
+      </div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">⚡</div>
+      <div>
+        <h4>Reduce Your Monthly Energy Use</h4>
+        <p>A properly sized residential solar system can cover a significant portion of your home's electricity needs, reducing how much you draw from the grid each month.</p>
+      </div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🏠</div>
+      <div>
+        <h4>Long-Term Home Improvement</h4>
+        <p>Solar panels are a durable, long-lasting addition to your home. Most residential systems continue producing clean energy for 25 years or more.</p>
+      </div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🌿</div>
+      <div>
+        <h4>Clean Energy for Your Family</h4>
+        <p>A typical residential solar system offsets over 100,000 lbs of carbon dioxide over its lifetime — equivalent to planting thousands of trees for future generations.</p>
+      </div>
+    </div>
+  </div>
+
+<hr class="full-divider">
+
+<!-- CONTACT SECTION - FORM ONLY -->
+<section id="contact">
+  <div style="max-width: 800px; margin: 0 auto; padding: 0 40px;">
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div class="section-label">Contact Us</div>
+      <h2 class="section-title">Request Solar Consultation</h2>
+      <p style="font-size: 15px; color: var(--muted); max-width: 500px; margin: 0 auto;">Fill out the form below and our team will reach out to discuss how residential solar works for your home.</p>
+    </div>
+
+    <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px;">
+      <div class="contact-detail">
+        <span>📍</span>
+        <span>Alturas de Borinquen Gardens, Calle Orchid KK10 Apt 709, San Juan PR 00926</span>
+      </div>
+      <div class="contact-detail">
+        <span>📞</span>
+        <span></span>
+      </div>
+      <div class="contact-detail" style="margin-bottom: 28px;">
+        <span>✉️</span>
+        <span>chesslabspr@gmail.com</span>
+      </div>
+      <div class="contact-detail">
+        <span>📞</span>
+        <span>+1 (787) 455-1546</span>
+      </div>
+      <iframe src="https://api.leadconnectorhq.com/widget/form/ykQcV0JCfe42jdp4BNyc" style="width:100%;border:none;overflow:hidden;min-height:900px;display:block;" scrolling="no" id="ykQcV0JCfe42jdp4BNyc"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">UPTIMIZA</div>
+  <div class="footer-info">
+    UPTIMIZA &nbsp;&middot;&nbsp; Alturas de Borinquen Gardens, Calle Orchid KK10 Apt 709, San Juan PR 00926<br>
+    chesslabspr@gmail.com &nbsp;&middot;&nbsp; +1 (787) 455-1546 &nbsp;&middot;&nbsp; <a href="https://www.uptimiza.com" style="color:#111;">www.uptimiza.com</a><br>
+    &copy; 2026 UPTIMIZA. All rights reserved.
+  </div>
+</footer>
+
+</body>
+</html>
